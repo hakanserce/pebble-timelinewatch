@@ -1,0 +1,26 @@
+{
+    "author": "hakanserce@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "timelinewatch",
+    "pebble": {
+        "displayName": "TimeLineWatch",
+        "enableMultiJS": false,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "11cd4131-2999-4f9b-a684-7c0c7c98f5ef",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
