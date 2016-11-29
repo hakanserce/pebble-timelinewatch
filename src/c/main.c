@@ -2,7 +2,8 @@
 
 static Window *s_main_window;
 static TextLayer *s_time_layer;
-
+static TextLayer *s_prev_event_layer;
+static TextLayer *s_next_event_layer;
 
 static void update_time() {
   // Get a tm structure
@@ -30,21 +31,47 @@ static void main_window_load(Window *window) {
   // Create the TextLayer with specific bounds
   s_time_layer = text_layer_create(
       GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+  
 
   // Improve the layout to be more like a watchface
-  text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorBlack);
+  text_layer_set_background_color(s_time_layer, GColorBlack);
+  text_layer_set_text_color(s_time_layer, GColorWhite);
   text_layer_set_text(s_time_layer, "00:00");
   text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD));
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
+ 
+  // create prev event layer
+  s_prev_event_layer = text_layer_create(
+    GRect(0, PBL_IF_ROUND_ELSE(125, 20), bounds.size.w, 25));
 
-  // Add it as a child layer to the Window's root layer
+  // Style the text
+  text_layer_set_background_color(s_prev_event_layer, GColorBlack);
+  text_layer_set_text_color(s_prev_event_layer, GColorWhite);
+  text_layer_set_text_alignment(s_prev_event_layer, GTextAlignmentCenter);
+  text_layer_set_text(s_prev_event_layer, "Loading prev...");
+
+  // create next event layer
+  s_next_event_layer = text_layer_create(
+    GRect(0, PBL_IF_ROUND_ELSE(125, 120), bounds.size.w, 25));
+
+  // Style the text
+  text_layer_set_background_color(s_next_event_layer, GColorBlack);
+  text_layer_set_text_color(s_next_event_layer, GColorWhite);
+  text_layer_set_text_alignment(s_next_event_layer, GTextAlignmentCenter);
+  text_layer_set_text(s_next_event_layer, "Loading next...");
+
+  // Add text layers as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
+  layer_add_child(window_layer, text_layer_get_layer(s_prev_event_layer));
+  layer_add_child(window_layer, text_layer_get_layer(s_next_event_layer));
+  
 }
 
 static void main_window_unload(Window *window) {
-  // Destroy TextLayer
+  // Destroy TextLayers
   text_layer_destroy(s_time_layer);
+  text_layer_destroy(s_prev_event_layer);
+  text_layer_destroy(s_next_event_layer);
 }
 
 static void init() {
